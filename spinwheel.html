@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spin Wheel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #wheel {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid #000;
+      position: relative;
+      overflow: hidden;
+      align-items: center;
+      margin-left: 40%;
+    }
+    .sector {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 100px 0 0 100px;
+      border-color: transparent transparent transparent #FFA500;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 100% 100%;
+      align-items: center;
+    }
+    #spinButton {
+      margin-top: 20px;
+      cursor: pointer;
+      padding: 10px 20px;
+      background-color: #FFA500;
+      color: #FFF;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="wheel">
+    <!-- Add sectors dynamically using JavaScript -->
+  </div>
+  <button id="spinButton">SPIN</button>
+
+  <script>
+    // Array of options for each sector
+    const options = [
+      "TAKE BREAK",
+      "WATCH MOVIES",
+      "GET SOME REST",
+      "GET SOME FOOD"
+    ];
+
+    const wheel = document.getElementById("wheel");
+    const spinButton = document.getElementById("spinButton");
+
+    // Function to create sectors based on the number of options
+    function createSectors() {
+      const angle = 360 / options.length;
+      let startAngle = 0;
+
+      for (let i = 0; i < options.length; i++) {
+        const sector = document.createElement("div");
+        sector.className = "sector";
+        sector.style.transform = `rotate(${startAngle}deg)`;
+        sector.innerHTML = options[i];
+        wheel.appendChild(sector);
+        startAngle += angle;
+      }
+    }
+
+    // Function to randomly select and display the result
+    function spinWheel() {
+      const randomIndex = Math.floor(Math.random() * options.length);
+      const angle = 360 * 5 + (360 / options.length) * randomIndex;
+
+      wheel.style.transition = "transform 3s ease-out";
+      wheel.style.transform = `rotate(${angle}deg)`;
+
+      // Display the result after a delay of 3 seconds (matching the transition time)
+      setTimeout(() => {
+        alert(options[randomIndex]);
+      }, 3000);
+    }
+
+    // Event listener for the spin button
+    spinButton.addEventListener("click", spinWheel);
+
+    // Create the sectors on page load
+    createSectors();
+  </script>
+</body>
+</html>

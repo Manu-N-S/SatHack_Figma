@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <style>
+        .bodyrps {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .choicesrps {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .choicerps {
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .choicerps:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <div class="choicesrps">
+        <button class="choicerps" onclick="rockPaperScissors('rock')">Rock</button>
+        <button class="choicerps" onclick="rockPaperScissors('paper')">Paper</button>
+        <button class="choicerps" onclick="rockPaperScissors('scissors')">Scissors</button>
+    </div>
+    <p id="result"></p>
+
+    <script>
+        function rockPaperScissors(playerChoice) {
+            function computerPlay() {
+                const choices = ['rock', 'paper', 'scissors'];
+                const randomIndex = Math.floor(Math.random() * choices.length);
+                return choices[randomIndex];
+            }
+
+            const computerChoice = computerPlay();
+
+            // Determine the winner
+            let result;
+            if (playerChoice === computerChoice) {
+                result = "It's a tie!";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win!";
+            } else {
+                result = "Computer wins!";
+            }
+
+            // Display the result
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `You chose ${playerChoice}, Computer chose ${computerChoice}. ${result}`;
+        }
+    </script>
+</body>
+</html>

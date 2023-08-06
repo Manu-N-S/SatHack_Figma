@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 2px;
+            border: 1px solid black;
+            width: 306px;
+        }
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="board" id="board">
+        <div class="cell" onclick="makeMove(0, 0)"></div>
+        <div class="cell" onclick="makeMove(0, 1)"></div>
+        <div class="cell" onclick="makeMove(0, 2)"></div>
+        <div class="cell" onclick="makeMove(1, 0)"></div>
+        <div class="cell" onclick="makeMove(1, 1)"></div>
+        <div class="cell" onclick="makeMove(1, 2)"></div>
+        <div class="cell" onclick="makeMove(2, 0)"></div>
+        <div class="cell" onclick="makeMove(2, 1)"></div>
+        <div class="cell" onclick="makeMove(2, 2)"></div>
+    </div>
+    <script>
+        const board = [[null, null, null], [null, null, null], [null, null, null]];
+        let currentPlayer = "X";
+
+        function makeMove(row, col) {
+            if (board[row][col] === null) {
+                board[row][col] = currentPlayer;
+                document.getElementById("board").children[row * 3 + col].textContent = currentPlayer;
+                if (checkWin()) {
+                    alert(currentPlayer + " wins!");
+                    resetBoard();
+                } else if (checkDraw()) {
+                    alert("It's a draw!");
+                    resetBoard();
+                } else {
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                    if (currentPlayer === "O") {
+                        computerMove();
+                    }
+                }
+            }
+        }
+
+        function computerMove() {
+            // Implement your computer's move logic here
+            // For a simple example, we'll make a random move
+            let availableMoves = [];
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] === null) {
+                        availableMoves.push({ row: i, col: j });
+                    }
+                }
+            }
+            if (availableMoves.length > 0) {
+                const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+                makeMove(randomMove.row, randomMove.col);
+            }
+        }
+
+        function checkWin() {
+            // Implement win condition logic here
+            // Check rows, columns, and diagonals for three in a row
+            // Return true if there is a winner, false otherwise
+            // Sample win condition check (for horizontal lines)
+            for (let i = 0; i < 3; i++) {
+                if (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function checkDraw() {
+            // Check if the game is a draw (no more moves left)
+            // Return true if it's a draw, false otherwise
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] === null) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function resetBoard() {
+            // Clear the board and reset the game
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    board[i][j] = null;
+                    document.getElementById("board").children[i * 3 + j].textContent = "";
+                }
+            }
+            currentPlayer = "X";
+        }
+    </script>
+</body>
+</html>

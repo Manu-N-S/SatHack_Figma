@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Selection</title>
+  <style>
+    .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 2px;
+            border: 1px solid black;
+            width: 306px;
+            margin: 0 auto;
+        }
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+  </style>
+</head>
+<body>
+    <!-- <div class="board" id="board" style="display: none;">
+        <div class="cell" onclick="makeMove(0, 0)"></div>
+        <div class="cell" onclick="makeMove(0, 1)"></div>
+        <div class="cell" onclick="makeMove(0, 2)"></div>
+        <div class="cell" onclick="makeMove(1, 0)"></div>
+        <div class="cell" onclick="makeMove(1, 1)"></div>
+        <div class="cell" onclick="makeMove(1, 2)"></div>
+        <div class="cell" onclick="makeMove(2, 0)"></div>
+        <div class="cell" onclick="makeMove(2, 1)"></div>
+        <div class="cell" onclick="makeMove(2, 2)"></div>
+    </div> -->
+    <h1 id="home_title" style="font-weight: bold; color: darkblue; text-align: center;">SELECT YOUR GAME !</h1>
+    <button id="home_btn1" onclick="openTicTacToe()" style=" height:200px;width:500px; background-image: (to bottom right, #FFDAB9, #FFC0CB); text-align: center; border-radius: 10px; display: block; margin: 150px auto;">Tic Tac Toe</button>
+  <br>
+  <button id="home_btn2" onclick="openRockPaperScissors()" style="height:200px; width:500px; background-image: linear-gradient(to bottom right, #99bede, #fafafa); text-align: center; border-radius: 10px; display: block; margin: 50px auto;">Rock Paper Scissors</button>
+  <button id="bck" onclick="openHome()" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background-color: grey; border: none; border-radius: 0; font-weight: bold;">HOME</button>
+  <div id="gameContainer" style="display: none;">
+    <div id="ticTacToe">
+        <h1 style="font-weight: bold; color: red; text-align: center;">Tic Tac Toe</h1>
+      <div class = "board" id="board">
+        <div class="cell" onclick="makeMoveT(0, 0)"></div>
+        <div class="cell" onclick="makeMoveT(0, 1)"></div>
+        <div class="cell" onclick="makeMoveT(0, 2)"></div>
+        <div class="cell" onclick="makeMoveT(1, 0)"></div>
+        <div class="cell" onclick="makeMoveT(1, 1)"></div>
+        <div class="cell" onclick="makeMoveT(1, 2)"></div>
+        <div class="cell" onclick="makeMoveT(2, 0)"></div>
+        <div class="cell" onclick="makeMoveT(2, 1)"></div>
+        <div class="cell" onclick="makeMoveT(2, 2)"></div>
+      </div>
+    </div>
+
+    <div id="rockPaperScissors">
+        <h1 style="color: olive; font-weight: bold; text-align: center;">Rock Paper Scissors</h1>
+      <div>
+        <button  onclick="makeMove('rock')" style=" height:50px; width:200px; margin: 10% auto auto 10%; border-radius: 5px; background-color: #888; filter: grayscale(100%);">Rock</button>
+        <button onclick="makeMove('paper')" style=" height:50px; width:200px; margin: 10% auto auto 10%; border-radius: 5px; background-color: yellow; filter: grayscale(100%);">Paper</button>
+        <button onclick="makeMove('scissors')" style="  height:50px; width:200px; margin: 10% auto auto 10%; border-radius: 5px; background-color: #FFA500; filter: grayscale(100%);">Scissors</button>
+      </div>
+      <div>
+        <p id="player-choice" style=" margin-top: 2 0%; text-align: left; font-weight: bold;">Your Choice:</p>
+        <p id="computer-choice">Computer's Choice: </p>
+        <h2 id="result">Result: </h2>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openHome(){
+      document.getElementById('home_title').style.display = 'block';
+      document.getElementById('home_btn1').style.display = 'block';
+      document.getElementById('home_btn2').style.display = 'block';
+      document.getElementById('gameContainer').style.display = 'none';
+      document.getElementById('ticTacToe').style.display = 'none';
+      document.getElementById('rockPaperScissors').style.display = 'none';
+    }
+
+    function openTicTacToe() {
+      document.getElementById('home_title').style.display = 'none';
+      document.getElementById('home_btn1').style.display = 'none';
+      document.getElementById('home_btn2').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      document.getElementById('ticTacToe').style.display = 'block';
+      document.getElementById('rockPaperScissors').style.display = 'none';
+    //   initializeTicTacToe();
+    }
+
+    function openRockPaperScissors() {
+      document.getElementById('home_title').style.display = 'none';
+      document.getElementById('home_btn1').style.display = 'none';
+      document.getElementById('home_btn2').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      document.getElementById('ticTacToe').style.display = 'none';
+      document.getElementById('rockPaperScissors').style.display = 'block';
+    }
+
+    // Tic Tac Toe
+    const board = [[null, null, null], [null, null, null], [null, null, null]];
+        let currentPlayer = "X";
+
+        function makeMoveT(row, col) {
+            if (board[row][col] === null) {
+                board[row][col] = currentPlayer;
+                document.getElementById("board").children[row * 3 + col].textContent = currentPlayer;
+                if (checkWin()) {
+                    alert(currentPlayer + " wins!");
+                    resetBoard();
+                } else if (checkDraw()) {
+                    alert("It's a draw!");
+                    resetBoard();
+                } else {
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                    if (currentPlayer === "O") {
+                        computerMove();
+                    }
+                }
+            }
+        }
+
+        function computerMove() {
+            // Implement your computer's move logic here
+            // For a simple example, we'll make a random move
+            let availableMoves = [];
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] === null) {
+                        availableMoves.push({ row: i, col: j });
+                    }
+                }
+            }
+            if (availableMoves.length > 0) {
+                const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+                makeMoveT(randomMove.row, randomMove.col);
+            }
+        }
+
+        function checkWin() {
+            // Implement win condition logic here
+            // Check rows, columns, and diagonals for three in a row
+            // Return true if there is a winner, false otherwise
+            // Sample win condition check (for horizontal lines)
+            for (let i = 0; i < 3; i++) {
+                if (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function checkDraw() {
+            // Check if the game is a draw (no more moves left)
+            // Return true if it's a draw, false otherwise
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] === null) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function resetBoard() {
+            // Clear the board and reset the game
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    board[i][j] = null;
+                    document.getElementById("board").children[i * 3 + j].textContent = "";
+                }
+            }
+            currentPlayer = "X";
+        }
+    // Rock Paper Scissors
+    function makeMove(playerChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+      document.getElementById('player-choice').innerText = 'Your Choice: ' + playerChoice;
+      document.getElementById('computer-choice').innerText = 'Computer\'s Choice: ' + computerChoice;
+
+      const result = determineWinner(playerChoice, computerChoice);
+      document.getElementById('result').innerText = 'Result: ' + result;
+    }
+
+    function determineWinner(playerChoice, computerChoice) {
+      if (playerChoice === computerChoice) {
+        return 'It\'s a tie!';
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        return 'You win!';
+      } else {
+        return 'Computer wins!';
+      }
+    }
+  </script>
+</body>
+</html>
