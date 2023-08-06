@@ -8,7 +8,7 @@ PISTACHIO is an innovative project tailored to offer a stress-relieving and enjo
 2. ADITHYAN T - ( https://github.com/Adith628 )
 3. ARJUN A I - ( https://github.com/ARJUN-A-I )
 ## Link to product walkthrough 
-Video Link - https://drive.google.com/file/d/1ZtlzlSNZg0zl63h_uIf4QUdTuuf_GJm_/view?usp=sharing
+Video Link - [https://drive.google.com/file/d/1ZtlzlSNZg0zl63h_uIf4QUdTuuf_GJm_/view?usp=sharing](https://drive.google.com/file/d/1wQmj-IeMkxiJFHudiGOUNqcRXki3-9uJ/view?usp=sharing)
 ## How it Works ?
 It is a widget , first there is a home UI which has options to select the type of game , from that the user can select game of their choice and enjoy playing it.
 ## Libraries used
