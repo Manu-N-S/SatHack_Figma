@@ -1,19 +1,21 @@
 ![Plasmo Notion](https://github.com/TH-Activities/saturday-hack-night-template/assets/64391274/85d3fbb8-aed6-4751-b051-4539df392f1a)
 
 
-# Project Name
-Long Description about project. This project do that. This project is awesome...
+# PISTACHIO
+PISTACHIO is an innovative project tailored to offer a stress-relieving and enjoyable experience for designers who often face the pressures of their profession. The project aims to create a digital platform that serves as a creative sanctuary, promoting relaxation, inspiration, and a renewed sense of artistic passion.
 ## Team members
-1. [Name 1](https://github.com/TH-Activities/saturday-hack-night-template)
-2. [Name 2](https://github.com/TH-Activities/saturday-hack-night-template)
-## Link to product walkthrough
+1. MANU N S - ( https://github.com/Manu-N-S )
+2. ADITHYAN T - ( https://github.com/Adith628 )
+3. ARJUN A I - ( https://github.com/ARJUN-A-I )
+## Link to product walkthrough 
 [link to video](Link Here)
 ## How it Works ?
-1. Explaining the working of project
-2. Embed video of project demo
+It is a widget , first there is a home UI which has options to select the type of game , from that the user can select game of their choice and enjoy playing it.
 ## Libraries used
-Library Name - Version
+FIGMA WIDGET <br>
+HTML,CSS,JS
 ## How to configure
-Instructions for setting up project
+npm install <br>
+npm run build
 ## How to Run
-Instructions for running
+npm run watch
